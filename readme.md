@@ -139,27 +139,31 @@ Each note includes:
 
 ## 🔄 Data Flow
 
-### Authentication Flow
-Sign Up → Store User + Security Q/A
-Sign In → Validate Password → Validate Security Answer → Login
-Forgot Password → Email → Reset Link → Update Password
-
-
----
-
-### Notes Flow
-Dashboard → Add Note → Save → Display in List
-Click Note → View Mode
-Edit → Update → Save
-Delete → Soft Delete → Hidden from List
+### 🔐 Authentication Flow
+```
+Sign Up → Store User + Security Q/A  
+Sign In → Validate Password → Validate Security Answer → Login  
+Forgot Password → Email → Reset Link → Update Password  
+```
 
 ---
 
-### Profile Flow
+### 🗒️ Notes Flow
+```
+Dashboard → Add Note → Save → Display in List  
+Click Note → View Mode  
+Edit → Update → Save  
+Delete → Soft Delete → Hidden from List  
+```
+
+---
+
+### 👤 Profile Flow
+```
 Profile Page →
-→ Update Password (via email link)
-→ Update Security Question (requires password)
-
+   → Update Password (via email link)  
+   → Update Security Question (requires password)  
+```
 
 ---
 

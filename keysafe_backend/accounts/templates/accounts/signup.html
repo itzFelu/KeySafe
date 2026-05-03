@@ -5,28 +5,48 @@
 {% block content %}
 <div class="auth-card">
     <h3 class="auth-title">Create Your Account</h3>
-
+    {% include 'components/messages.html' %}
     <form method="post">
         {% csrf_token %}
 
         <div class="mb-3">
             <input type="text" name="name" class="form-control" placeholder="👤 Full Name" required>
+
+            {% if form.name.errors %}
+                <small class="text-danger">{{ form.name.errors.0 }}</small>
+            {% endif %}
         </div>
 
         <div class="mb-3">
             <input type="date" name="dob" class="form-control" required>
+
+            {% if form.dob.errors %}
+                <small class="text-danger">{{ form.dob.errors.0 }}</small>
+            {% endif %}
         </div>
 
         <div class="mb-3">
             <input type="email" name="email" class="form-control" placeholder="📧 Email" required>
+            
+            {% if form.email.errors %}
+                <small class="text-danger">{{ form.email.errors.0 }}</small>
+            {% endif %}
         </div>
 
         <div class="mb-3">
             <input type="password" name="password" class="form-control" placeholder="🔒 Password" required>
+            
+            {% if form.password.errors %}
+                <small class="text-danger">{{ form.password.errors.0 }}</small>
+            {% endif %}
         </div>
 
         <div class="mb-3">
             <input type="password" name="confirm_password" class="form-control" placeholder="🔒 Confirm Password" required>
+            
+            {% if form.confirm_password.errors %}
+                <small class="text-danger">{{ form.confirm_password.errors.0 }}</small>
+            {% endif %}
         </div>
 
         <hr>
@@ -38,10 +58,19 @@
                 <option value="player">Favorite Player</option>
                 <option value="nickname">Nickname</option>
             </select>
+
+            
+            {% if form.security_question.errors %}
+                <small class="text-danger">{{ form.security_question.errors.0 }}</small>
+            {% endif %}
         </div>
 
         <div class="mb-3">
             <input type="text" name="security_answer" class="form-control" placeholder="✍️ Your Answer" required>
+            
+            {% if form.security_answer.errors %}
+                <small class="text-danger">{{ form.security_answer.errors.0 }}</small>
+            {% endif %}
         </div>
 
         <button type="submit" class="btn btn-primary w-100">Sign Up</button>

@@ -4,16 +4,24 @@
 {% block content %}
 <div class="auth-card">
     <h3 class="auth-title text-center">Login</h3>
-
+    {% include 'components/messages.html' %}
     <form method="post">
         {% csrf_token %}
 
         <div class="mb-3">
             <input type="email" name="email" class="form-control" placeholder="📧 Email" required>
+
+            {% if form.email.errors %}
+                <small class="text-danger">{{ form.email.errors.0 }}</small>
+            {% endif %}
         </div>
 
         <div class="mb-3">
             <input type="password" name="password" class="form-control" placeholder="🔒 Password" required>
+
+            {% if form.password.errors %}
+                <small class="text-danger">{{ form.password.errors.0 }}</small>
+            {% endif %}
         </div>
 
         <button type="submit" class="btn btn-primary w-100">Login</button>

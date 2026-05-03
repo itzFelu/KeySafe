@@ -4,7 +4,7 @@
 {% block content %}
 <div class="auth-card">
     <h3 class="auth-title">Security Check</h3>
-
+    {% include 'components/messages.html' %}
     <form method="post">
         {% csrf_token %}
 
@@ -16,6 +16,10 @@
 
         <div class="mb-3">
             <input type="text" name="answer" class="form-control" placeholder="✍️ Your Answer" required>
+
+            {% if form.answer.errors %}
+                <small class="text-danger">{{ form.answer.errors.0 }}</small>
+            {% endif %}
         </div>
 
         <button type="submit" class="btn btn-primary w-100">Verify</button>

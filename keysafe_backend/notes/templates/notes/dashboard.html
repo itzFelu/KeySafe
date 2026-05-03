@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- ➕ Add Note -->
+<div class="add-note-btn">
+    <a href="#" class="btn btn-primary">+ Add Note</a>
+</div>
+
+<!-- 🗒️ Notes List -->
+<div class="row g-3">
+
+    <!-- Example Note -->
+    <div class="col-md-4">
+        <div class="note-card">
+            <div class="note-actions dropdown">
+                <a href="#" data-bs-toggle="dropdown">⋮</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Edit</a></li>
+                    <li><a class="dropdown-item text-danger" href="#">Delete</a></li>
+                </ul>
+            </div>
+
+            <div class="note-title">Sample Note</div>
+            <p class="text-muted small">This is a preview of the note content...</p>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

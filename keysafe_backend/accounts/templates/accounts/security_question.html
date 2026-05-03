@@ -1,0 +1,24 @@
+{% extends 'base_auth.html' %}
+
+{% block title%}Security Check{% endblock%}
+{% block content %}
+<div class="auth-card">
+    <h3 class="auth-title">Security Check</h3>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="mb-3 text-center">
+            <p style="font-weight: 600; color: #243b55;">
+                ❓ {{ question }}
+            </p>
+        </div>
+
+        <div class="mb-3">
+            <input type="text" name="answer" class="form-control" placeholder="✍️ Your Answer" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Verify</button>
+    </form>
+</div>
+{% endblock %}

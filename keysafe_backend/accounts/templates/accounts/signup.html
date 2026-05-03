@@ -1,0 +1,54 @@
+{% extends 'base_auth.html' %}
+{% load static %}
+
+{% block title%}Create Your Account{% endblock%}
+{% block content %}
+<div class="auth-card">
+    <h3 class="auth-title">Create Your Account</h3>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <input type="text" name="name" class="form-control" placeholder="👤 Full Name" required>
+        </div>
+
+        <div class="mb-3">
+            <input type="date" name="dob" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <input type="email" name="email" class="form-control" placeholder="📧 Email" required>
+        </div>
+
+        <div class="mb-3">
+            <input type="password" name="password" class="form-control" placeholder="🔒 Password" required>
+        </div>
+
+        <div class="mb-3">
+            <input type="password" name="confirm_password" class="form-control" placeholder="🔒 Confirm Password" required>
+        </div>
+
+        <hr>
+        <p class="text-muted small text-center">Security Setup</p>
+        <div class="mb-3">
+            <select name="security_question" class="form-control" required>
+                <option value="">❓ Select Security Question</option>
+                <option value="school">School Name</option>
+                <option value="player">Favorite Player</option>
+                <option value="nickname">Nickname</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <input type="text" name="security_answer" class="form-control" placeholder="✍️ Your Answer" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+
+        <p class="form-text-link">
+            Already have an account? <a href="{% url 'login' %}">Login</a>
+        </p>
+    </form>
+</div>
+{% endblock %}

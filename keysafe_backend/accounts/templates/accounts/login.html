@@ -1,0 +1,30 @@
+{% extends 'base_auth.html' %}
+
+{% block title%}Login to Your Account{% endblock%}
+{% block content %}
+<div class="auth-card">
+    <h3 class="auth-title text-center">Login</h3>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <input type="email" name="email" class="form-control" placeholder="📧 Email" required>
+        </div>
+
+        <div class="mb-3">
+            <input type="password" name="password" class="form-control" placeholder="🔒 Password" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+
+        <p class="form-text-link">
+            <a href="#">Forgot Password?</a>
+        </p>
+
+        <p class="form-text-link">
+            Don't have an account? <a href="{% url 'signup' %}">Sign Up</a>
+        </p>
+    </form>
+</div>
+{% endblock %}

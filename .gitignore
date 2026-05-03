@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django
+*.log
+*.pot
+*.pyc
+db.sqlite3
+media/
+
+# Environment variables
+.env
+.env.*
+*.env
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+
+# Mac
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Static files (collected)
+staticfiles/
+
+# Migrations (optional)
+# Comment this if you want migrations tracked
+# Ignore all files inside migrations
+**/migrations/*
+!**/migrations/__init__.py
+
+# But keep __init__.py
+
+# Coverage / testing
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Node (if you add frontend later)
+node_modules/
+
+# Temporary files
+*.swp
+*.swo

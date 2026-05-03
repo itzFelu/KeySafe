@@ -1,4 +1,4 @@
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, redirect
 from .forms import SignupForm, LoginForm, SecurityQuestionForm
 from .models import User
@@ -65,4 +65,17 @@ def security_question_view(request):
     return render(request, 'accounts/security_question.html', {
         'question': user.get_security_question_display()
     })
+
+
+
+def logout_view(request):
+    logout(request)
+    messages.success(request, "Logged out successfully!")
+    return redirect('login')
+
+
+def home_redirect_view(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+    return redirect('login')
 

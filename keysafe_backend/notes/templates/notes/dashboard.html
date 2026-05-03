@@ -4,27 +4,34 @@
 
 <!-- ➕ Add Note -->
 <div class="add-note-btn">
-    <a href="#" class="btn btn-primary">+ Add Note</a>
+    <a href="{% url 'add-note' %}" class="btn btn-primary">+ Add Note</a>
 </div>
 
 <!-- 🗒️ Notes List -->
 <div class="row g-3">
 
-    <!-- Example Note -->
+    {% for note in notes %}
     <div class="col-md-4">
-        <div class="note-card">
+        <div class="note-card" onclick="window.location.href='{% url 'note-detail' note.id %}'">
+
             <div class="note-actions dropdown">
                 <a href="#" data-bs-toggle="dropdown">⋮</a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Edit</a></li>
-                    <li><a class="dropdown-item text-danger" href="#">Delete</a></li>
+                    <li><a class="dropdown-item" href="{% url 'edit-note' note.id %}">Edit</a></li>
+                    <li><a class="dropdown-item text-danger" href="{% url 'delete-note' note.id %}">Delete</a></li>
                 </ul>
             </div>
 
-            <div class="note-title">Sample Note</div>
-            <p class="text-muted small">This is a preview of the note content...</p>
+            <div class="note-title">{{ note.title }}</div>
+            <p class="text-muted small">
+                {{ note.content|truncatechars:80 }}
+            </p>
+
         </div>
     </div>
+    {% empty %}
+    <p class="text-center text-muted">No notes yet. Start by adding one!</p>
+    {% endfor %}
 
 </div>
 

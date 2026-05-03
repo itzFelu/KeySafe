@@ -79,7 +79,10 @@
             </li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Profile</a></li>
-            <li><a class="dropdown-item" href="#">Logout</a></li>
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button class="dropdown-item text-danger">Logout</button>
+            </form>
         </ul>
     </div>
 </nav>

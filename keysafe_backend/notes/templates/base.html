@@ -16,17 +16,52 @@
             font-family: 'Segoe UI', sans-serif;
         }
 
-        .navbar {
+        /* 🔹 Navbar */
+        .custom-navbar {
             background: #1e293b;
+            /* padding: 16px 24px; */
+            min-height: 80px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
 
-        .navbar-brand {
-            font-weight: 600;
-            color: white !important;
+        /* 🔹 Branding Wrapper (Fix blending issue) */
+        .branding-wrapper {
+            background: rgba(255,255,255,0.95);  /* 👈 contrast background */
+            padding: 6px 10px;
+            border-radius: 10px;
         }
 
-        .nav-link, .dropdown-toggle {
-            color: white !important;
+        /* 🔹 Branding Image */
+        .nav-branding {
+            height: 80px !important;
+            width: auto !important;
+            max-height: none !important;
+            display: block;
+        }
+
+        /* 🔹 Avatar Image */
+        .avatar-img {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid white;
+            transition: 0.3s;
+        }
+
+        .avatar-img:hover {
+            transform: scale(1.05);
+        }
+
+        /* 🔹 Name under avatar */
+        .avatar-name {
+            color: white;
+            font-size: 12px;
+        }
+
+        /* 🔹 Dropdown */
+        .dropdown-menu {
+            border-radius: 10px;
         }
 
         .dashboard-container {
@@ -64,27 +99,45 @@
 <body>
 
 <!-- 🔝 Navbar -->
-<nav class="navbar navbar-expand-lg px-4">
-    <a class="navbar-brand" href="#">🔐 KeySafe</a>
+<nav class="navbar navbar-expand-lg px-4 custom-navbar">
 
-    <div class="ms-auto dropdown">
-        <a class="dropdown-toggle" href="#" data-bs-toggle="dropdown">
-            👤 {{ request.user.name }}
+    <!-- 🔹 Branding (Clickable) -->
+    <a class="navbar-brand d-flex align-items-center" href="{% url 'dashboard' %}">
+        <img src="{% static 'images/branding.png' %}" alt="KeySafe" class="nav-branding">
+    </a>
+
+    <!-- 🔹 Right Side Avatar -->
+    <div class="ms-auto dropdown text-center">
+
+        <a href="#" data-bs-toggle="dropdown" class="text-decoration-none">
+
+            <!-- Avatar Image -->
+            <img src="{% static 'images/avatar.png' %}" alt="avatar" class="avatar-img">
+
+            <!-- Full Name -->
+            <div class="avatar-name small mt-1">
+                {{ request.user.name }}
+            </div>
+
         </a>
 
-        <ul class="dropdown-menu dropdown-menu-end">
-            <li class="dropdown-item">
+        <ul class="dropdown-menu dropdown-menu-end mt-2">
+            <li class="dropdown-item text-center">
                 <strong>{{ request.user.name }}</strong><br>
                 <small>{{ request.user.email }}</small>
             </li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Profile</a></li>
-            <form method="post" action="{% url 'logout' %}">
-                {% csrf_token %}
-                <button class="dropdown-item text-danger">Logout</button>
-            </form>
+            <li>
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button class="dropdown-item text-danger">Logout</button>
+                </form>
+            </li>
         </ul>
+
     </div>
+
 </nav>
 
 <!-- 🔔 Messages -->

@@ -139,6 +139,95 @@
             position: relative;
             z-index: 2;
         }
+
+        /* Note Detail */
+        .note-detail-card {
+            background: white;
+            border-radius: 18px;
+            padding: 35px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+        }
+
+        /* Header */
+        .note-detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        /* Long title fix */
+        .detail-title {
+            font-size: 30px;
+            font-weight: 700;
+            color: #0f172a;
+
+            word-break: break-word;
+            overflow-wrap: break-word;
+
+            max-width: 90%;
+        }
+
+        /* Meta */
+        .note-meta {
+            margin-top: 8px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        /* Body */
+        .note-body {
+            margin-top: 30px;
+            line-height: 1.9;
+            color: #334155;
+            font-size: 16px;
+
+            white-space: pre-wrap;
+        }
+
+        /* Action button */
+        .action-btn {
+            border: none;
+            background: #f1f5f9;
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            font-size: 22px;
+            transition: 0.2s;
+        }
+
+        .action-btn:hover {
+            background: #e2e8f0;
+        }
+
+        /*-- Write Mode CSS --*/
+        /* Title Input */
+        .note-title-input {
+            border: none;
+            font-size: 32px;
+            font-weight: 700;
+            padding: 0;
+            box-shadow: none !important;
+        }
+
+        /* Content Input */
+        .note-content-input {
+            border: none;
+            resize: none;
+            min-height: 400px;
+            box-shadow: none !important;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        /*--- Messages ---*/
+        .message-container {
+            position: relative;
+            z-index: 1055;
+        }
+
+        .auto-dismiss-message {
+            transition: opacity 0.5s ease;
+        }
     </style>
 </head>
 <body>
@@ -196,6 +285,15 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    setTimeout(() => {
+        const alerts = document.querySelectorAll('.auto-dismiss-message');
 
+        alerts.forEach(alert => {
+            bootstrap.Alert.getOrCreateInstance(alert).close();
+        });
+
+    }, 5000); // 5 seconds
+</script>
 </body>
 </html>

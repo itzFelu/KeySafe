@@ -29,7 +29,14 @@
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" href="{% url 'note-detail' note.id %}">Open</a></li>
                         <li><a class="dropdown-item" href="{% url 'edit-note' note.id %}">Edit</a></li>
-                        <li><a class="dropdown-item text-danger" href="{% url 'delete-note' note.id %}">Delete</a></li>
+                        <li>
+                            <button 
+                                class="dropdown-item text-danger"
+                                data-bs-toggle="modal"
+                                data-bs-target="#deleteModal{{ note.id }}">
+                                Delete
+                            </button>
+                        </li>
                     </ul>
                 </div>
 
@@ -50,6 +57,37 @@
             <!-- 🔹 Click Overlay -->
             <a href="{% url 'note-detail' note.id %}" class="note-link"></a>
 
+        </div>
+        <!-- Delete Modal -->
+        <div class="modal fade" id="deleteModal{{ note.id }}" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border-0 shadow">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">Delete Note</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        Are you sure you want to delete
+                        <strong>"{{ note.title }}"</strong>?
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-light" data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+
+                        <form method="post" action="{% url 'delete-note' note.id %}">
+                            {% csrf_token %}
+                            <button class="btn btn-danger">
+                                Delete
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
     {% empty %}

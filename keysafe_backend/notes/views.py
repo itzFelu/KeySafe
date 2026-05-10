@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 
@@ -50,6 +51,7 @@ def edit_note_view(request, pk):
 
 
 @login_required
+@require_POST
 def delete_note_view(request, pk):
     note = get_object_or_404(Note, id=pk, user=request.user)
 

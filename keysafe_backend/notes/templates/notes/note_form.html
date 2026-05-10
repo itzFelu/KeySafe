@@ -2,31 +2,87 @@
 
 {% block content %}
 
-<h3 class="mb-3">Note</h3>
+<div class="note-detail-card">
 
-{% include 'components/messages.html' %}
-<form method="post">
-    {% csrf_token %}
-    <div class="mb-3">
-        <input type="text" name="title" class="form-control" placeholder="Title"
-               value="{{ form.title.value|default:'' }}" required>
-        
-        {% if form.title.errors %}
-            <small class="text-danger">{{ form.title.errors.0 }}</small>
-        {% endif %}
+    <form method="post">
+        {% csrf_token %}
+
+        <!-- Title -->
+        <div class="mb-4">
+            <input type="text"
+                   name="title"
+                   class="form-control note-title-input"
+                   placeholder="Note Title"
+                   value="{{ form.title.value|default:'' }}">
+        </div>
+
+        <!-- Content -->
+        <div class="mb-4">
+            <textarea name="content"
+                      rows="14"
+                      class="form-control note-content-input"
+                      placeholder="Start writing...">{{ form.content.value|default:'' }}</textarea>
+        </div>
+
+        <!-- Actions -->
+        <div class="d-flex gap-2">
+
+            <button class="btn btn-primary px-4">
+                Save
+            </button>
+
+            <a href="{% url 'dashboard' %}" class="btn btn-light">
+                Cancel
+            </a>
+
+            {% if form.instance.id %}
+            <button type="button"
+                    class="btn btn-danger ms-auto"
+                    data-bs-toggle="modal"
+                    data-bs-target="#deleteModal">
+                Delete
+            </button>
+            {% endif %}
+
+        </div>
+
+    </form>
+
+</div>
+
+<!-- Delete Modal -->
+{% if form.instance.id %}
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Note</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                Are you sure you want to delete this note?
+            </div>
+
+            <div class="modal-footer">
+
+                <button class="btn btn-light" data-bs-dismiss="modal">
+                    Cancel
+                </button>
+
+                <form method="post" action="{% url 'delete-note' form.instance.id %}">
+                    {% csrf_token %}
+                    <button class="btn btn-danger">
+                        Delete
+                    </button>
+                </form>
+
+            </div>
+
+        </div>
     </div>
-
-    <div class="mb-3">
-        <textarea required name="content" class="form-control" rows="6" placeholder="Write your note...">{{ form.content.value|default:'' }}</textarea>
-        
-        {% if form.content.errors %}
-            <small class="text-danger">{{ form.content.errors.0 }}</small>
-        {% endif %}
-    </div>
-
-    <button class="btn btn-primary">Save</button>
-    <a href="{% url 'dashboard' %}" class="btn btn-secondary">Cancel</a>
-
-</form>
+</div>
+{% endif %}
 
 {% endblock %}

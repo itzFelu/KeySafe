@@ -1,4 +1,5 @@
 from django.contrib.auth import login, authenticate, logout
+from django.views.decorators.http import require_POST
 from django.shortcuts import render, redirect
 from .forms import SignupForm, LoginForm, SecurityQuestionForm
 from .models import User
@@ -67,7 +68,7 @@ def security_question_view(request):
     })
 
 
-
+@require_POST
 def logout_view(request):
     logout(request)
     messages.success(request, "Logged out successfully!")

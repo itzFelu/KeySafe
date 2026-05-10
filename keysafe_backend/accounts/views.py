@@ -5,6 +5,11 @@ from django.shortcuts import render, redirect
 from .forms import SignupForm, LoginForm, SecurityQuestionForm
 from .models import User
 
+from .forms import UpdateSecurityQuestionForm
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import check_password
+
+
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
@@ -21,6 +26,9 @@ def signup_view(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password'])
+            user.security_answer = make_password(
+                form.cleaned_data['security_answer'].strip().lower()
+            )
             user.save()
 
             messages.success(request, "Account created successfully!")
@@ -70,7 +78,7 @@ def security_question_view(request):
     if request.method == 'POST':
         answer = request.POST.get('answer')
 
-        if answer.lower().strip() == user.security_answer.lower().strip():
+        if check_password(answer.strip().lower(), user.security_answer):
             login(request, user)
             del request.session['pre_auth_user']
             messages.success(request, "Login successful!")
@@ -225,3 +233,44 @@ def reset_password_view(request, uidb64, token):
         return redirect('login')
 
     return render(request, 'accounts/reset_password.html')
+
+
+@login_required
+def update_security_question_view(request):
+
+    form = UpdateSecurityQuestionForm()
+
+    if request.method == 'POST':
+
+        form = UpdateSecurityQuestionForm(request.POST)
+
+        if form.is_valid():
+
+            password = form.cleaned_data['password']
+
+            if not request.user.check_password(password):
+
+                messages.error(request, "Incorrect password.")
+                return redirect('update-security-question')
+
+            request.user.security_question = form.cleaned_data['security_question']
+
+            # HASH ANSWER
+            request.user.security_answer = make_password(
+                form.cleaned_data['security_answer']
+            )
+
+            request.user.save()
+
+            messages.success(
+                request,
+                "Security question updated successfully."
+            )
+
+            return redirect('profile')
+
+    return render(
+        request,
+        'accounts/update_security_question.html',
+        {'form': form}
+    )

@@ -23,4 +23,9 @@ urlpatterns = [
         views.reset_password_view,
         name='reset-password'
     ),
+    path(
+        'update-security-question/',
+        views.update_security_question_view,
+        name='update-security-question'
+    ),
 ]

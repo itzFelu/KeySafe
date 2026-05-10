@@ -33,4 +33,32 @@ class LoginForm(forms.Form):
 class SecurityQuestionForm(forms.Form):
     answer = forms.CharField()
 
-    
+
+SECURITY_CHOICES = [
+    ('school', 'What is your school name?'),
+    ('player', 'Who is your favorite player?'),
+    ('nickname', 'What is your nickname?'),
+]
+
+class UpdateSecurityQuestionForm(forms.Form):
+
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control',
+            'placeholder': '🔒 Current Password'
+        })
+    )
+
+    security_question = forms.ChoiceField(
+        choices=SECURITY_CHOICES,
+        widget=forms.Select(attrs={
+            'class': 'form-select'
+        })
+    )
+
+    security_answer = forms.CharField(
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': '🔐 New Security Answer'
+        })
+    )

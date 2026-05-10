@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block title%}Dashboard{% endblock%}
+
 {% block content %}
 
 <!-- ➕ Add Note -->
@@ -47,9 +49,11 @@
             </div>
 
             <!-- 🔹 Content Preview -->
+            {% comment %}
             <div class="note-content">
                 {{ note.decrypted_content|truncatechars:120 }}
             </div>
+            {% endcomment %}
 
             <!-- 🔹 Footer -->
             <div class="note-footer mt-3">

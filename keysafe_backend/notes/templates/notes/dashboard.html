@@ -3,34 +3,61 @@
 {% block content %}
 
 <!-- ➕ Add Note -->
+
+{% if notes|length != 0 %}
 <div class="add-note-btn">
     <a href="{% url 'add-note' %}" class="btn btn-primary">+ Add Note</a>
 </div>
+{% endif %}
 
 <!-- 🗒️ Notes List -->
-<div class="row g-3">
+<div class="row g-4">
 
     {% for note in notes %}
-    <div class="col-md-4">
-        <div class="note-card" onclick="window.location.href='{% url 'note-detail' note.id %}'">
+    <div class="col-md-4 col-lg-3">
+        <div class="note-card">
 
-            <div class="note-actions dropdown">
-                <a href="#" data-bs-toggle="dropdown">⋮</a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{% url 'edit-note' note.id %}">Edit</a></li>
-                    <li><a class="dropdown-item text-danger" href="{% url 'delete-note' note.id %}">Delete</a></li>
-                </ul>
+            <!-- 🔹 Top Section -->
+            <div class="d-flex justify-content-between align-items-start mb-2">
+
+                <div class="note-title">
+                    {{ note.title|truncatechars:40 }}
+                </div>
+
+                <div class="dropdown">
+                    <a href="#" data-bs-toggle="dropdown" class="note-menu">⋮</a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="{% url 'note-detail' note.id %}">Open</a></li>
+                        <li><a class="dropdown-item" href="{% url 'edit-note' note.id %}">Edit</a></li>
+                        <li><a class="dropdown-item text-danger" href="{% url 'delete-note' note.id %}">Delete</a></li>
+                    </ul>
+                </div>
+
             </div>
 
-            <div class="note-title">{{ note.title }}</div>
-            <p class="text-muted small">
-                {{ note.content|truncatechars:80 }}
-            </p>
+            <!-- 🔹 Content Preview -->
+            <div class="note-content">
+                {{ note.content|truncatechars:120 }}
+            </div>
+
+            <!-- 🔹 Footer -->
+            <div class="note-footer mt-3">
+                <small class="text-muted">
+                    {{ note.created_at|date:"M d, Y" }}
+                </small>
+            </div>
+
+            <!-- 🔹 Click Overlay -->
+            <a href="{% url 'note-detail' note.id %}" class="note-link"></a>
 
         </div>
     </div>
     {% empty %}
-    <p class="text-center text-muted">No notes yet. Start by adding one!</p>
+    <div class="text-center mt-5">
+        <h5 class="text-muted">No notes yet</h5>
+        <p class="text-muted">Start by creating your first note ✨</p>
+        <a href="{% url 'add-note' %}" class="btn btn-primary mt-2">+ Add Note</a>
+    </div>
     {% endfor %}
 
 </div>

@@ -74,25 +74,70 @@
             margin-bottom: 30px;
         }
 
+        /* 🔹 Note Card */
         .note-card {
-            border-radius: 12px;
-            padding: 20px;
+            position: relative;
+            border-radius: 14px;
+            padding: 18px;
             background: white;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-            transition: 0.3s;
-            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+            transition: all 0.25s ease;
+            height: 100%;
         }
 
+        /* Hover effect */
         .note-card:hover {
-            transform: translateY(-3px);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
         }
 
+        /* 🔹 Title */
         .note-title {
             font-weight: 600;
+            font-size: 15px;
+            color: #1e293b;
         }
 
-        .note-actions {
-            float: right;
+        /* 🔹 Menu */
+        .note-menu {
+            text-decoration: none;
+            color: #64748b;
+            font-size: 18px;
+        }
+
+        .note-menu:hover {
+            color: #000;
+        }
+
+        /* 🔹 Content */
+        .note-content {
+            font-size: 14px;
+            color: #475569;
+            line-height: 1.5;
+
+            display: -webkit-box;
+            -webkit-line-clamp: 3;   /* 👈 limits lines */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* 🔹 Footer */
+        .note-footer {
+            border-top: 1px solid #f1f5f9;
+            padding-top: 8px;
+        }
+
+        /* 🔹 Clickable Overlay */
+        .note-link {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+        }
+
+        /* Prevent menu click block */
+        .note-card .dropdown {
+            position: relative;
+            z-index: 2;
         }
     </style>
 </head>

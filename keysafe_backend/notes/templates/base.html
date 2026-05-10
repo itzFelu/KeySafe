@@ -262,6 +262,65 @@
         .auto-dismiss-message {
             transition: opacity 0.5s ease;
         }
+
+        /* Footer */
+        .keysafe-footer {
+
+            margin-top: 80px;
+
+            background:
+                linear-gradient(to right, #0f172a, #1e293b);
+
+            color: #e2e8f0;
+
+            padding: 40px 0 28px;
+
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        /* Logo */
+        .footer-logo {
+            height: 52px;
+            width: auto;
+            margin-bottom: 12px;
+        }
+
+        /* Tagline */
+        .footer-tagline {
+            color: #cbd5e1;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        /* Links */
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+
+            color: #e2e8f0;
+
+            text-decoration: none;
+
+            font-size: 15px;
+
+            transition: 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        /* Copyright */
+        .footer-copy {
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
     </style>
     {% block css %}
     <style>
@@ -325,6 +384,73 @@
 <div class="dashboard-container container">
     {% block content %}{% endblock %}
 </div>
+
+<footer class="keysafe-footer">
+
+    <div class="container">
+
+        <div class="row align-items-center gy-4">
+
+            <!-- Branding -->
+            <div class="col-lg-4">
+
+                <div class="footer-brand">
+
+                    <img src="{% static 'images/branding.png' %}"
+                         alt="KeySafe"
+                         class="footer-logo">
+
+                    <p class="footer-tagline">
+                        Secure your thoughts. Access them anywhere.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-lg-4 text-center">
+
+                <div class="footer-links">
+
+                    <a href="{% url 'dashboard' %}">
+                        Dashboard
+                    </a>
+
+                    <a href="{% url 'profile' %}">
+                        Profile
+                    </a>
+
+                    <a href="{% url 'add-note' %}">
+                        Add Note
+                    </a>
+
+                </div>
+
+            </div>
+
+            <!-- Copyright -->
+            <div class="col-lg-4 text-lg-end text-center">
+
+                <div class="footer-copy">
+
+                    <p class="mb-1">
+                        © 2026 KeySafe
+                    </p>
+
+                    <small>
+                        Built with Django & Bootstrap
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>

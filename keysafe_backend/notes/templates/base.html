@@ -229,6 +229,10 @@
             transition: opacity 0.5s ease;
         }
     </style>
+    {% block css %}
+    <style>
+    </style>
+    {% endblock %}
 </head>
 <body>
 
@@ -261,7 +265,11 @@
                 <small>{{ request.user.email }}</small>
             </li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li>
+                <a class="dropdown-item" href="{% url 'profile' %}">
+                    Profile
+                </a>
+            </li>
             <li>
                 <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}

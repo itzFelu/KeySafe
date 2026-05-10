@@ -11,6 +11,7 @@
         <div class="mb-4">
             <input type="text"
                    name="title"
+                   required
                    class="form-control note-title-input"
                    placeholder="Note Title"
                    value="{{ form.title.value|default:'' }}">
@@ -21,6 +22,7 @@
             <textarea name="content"
                       rows="14"
                       class="form-control note-content-input"
+                      required
                       placeholder="Start writing...">{{ form.content.value|default:'' }}</textarea>
         </div>
 

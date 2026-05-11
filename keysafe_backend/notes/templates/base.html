@@ -194,6 +194,34 @@
 
             overflow: visible;
         }
+        /* FIX DROPDOWN GETTING HIDDEN */
+        .row.g-4 {
+            overflow: visible;
+        }
+
+        .row.g-4 > div {
+            overflow: visible;
+        }
+
+        .note-card {
+            z-index: 1;
+        }
+
+        .note-card:hover {
+            z-index: 10;
+        }
+
+        .note-card .dropdown {
+            position: relative;
+        }
+
+        .note-card .dropdown-menu {
+            position: absolute;
+            z-index: 9999 !important;
+        }
+        .note-grid-col {
+            overflow: visible;
+        }
 
 
         /* Ensure dropdown appears on top */

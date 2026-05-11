@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title%}{% endblock%} - KeySafe</title>
     <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
     <!-- Bootstrap -->
@@ -15,27 +16,48 @@
             box-sizing: border-box;
         }
 
+        html,
         body {
             margin: 0;
-            min-height: 100vh;
+            padding: 0;
+            height: 100%;
             font-family: 'Segoe UI', sans-serif;
+            overflow-x: hidden;
+        }
+
+        body {
             background: linear-gradient(135deg, #fdfbfb, #ebedee);
         }
 
+        /* =========================
+        MAIN LAYOUT
+        ========================== */
+
         .auth-container {
             display: flex;
-            min-height: 100vh;
+            height: 100vh;
+            width: 100%;
         }
 
-        /* LEFT PANEL */
+        /* =========================
+        LEFT PANEL
+        ========================== */
+
         .left-panel {
-            flex: 1;
+            width: 50%;
+            height: 100vh;
+
+            position: sticky;
+            top: 0;
+
             background: linear-gradient(135deg, #141e30, #243b55);
+
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
+
             overflow: hidden;
+
             padding: 40px;
         }
 
@@ -51,46 +73,74 @@
         }
 
         .left-panel img {
-            width: 80%;
-            max-width: 480px;
+            width: 100%;
+            max-width: 430px;
+
+            position: relative;
             z-index: 2;
+
             filter: drop-shadow(0px 20px 35px rgba(0,0,0,0.6));
+
             transition: transform 0.4s ease;
         }
 
         .left-panel img:hover {
-            transform: scale(1.05);
+            transform: scale(1.03);
         }
 
-        /* RIGHT PANEL */
+        /* =========================
+        RIGHT PANEL
+        ========================== */
+
         .right-panel {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 24px;
+            width: 50%;
+            height: 100vh;
+
             overflow-y: auto;
+
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+
+            padding: 60px 24px;
         }
 
-        /* AUTH CARD */
+        /* SCROLLBAR */
+
+        .right-panel::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .right-panel::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.18);
+            border-radius: 10px;
+        }
+
+        /* =========================
+        AUTH CARD
+        ========================== */
+
         .auth-card {
             width: 100%;
-            max-width: 460px;
-            padding: 32px;
-            border-radius: 20px;
+            max-width: 470px;
 
-            background: rgba(255, 255, 255, 0.78);
-            backdrop-filter: blur(12px);
+            padding: 36px;
+
+            border-radius: 24px;
+
+            background: rgba(255,255,255,0.84);
+
+            backdrop-filter: blur(14px);
 
             box-shadow: 0 20px 50px rgba(0,0,0,0.15);
 
-            animation: fadeIn 0.5s ease-in-out;
+            animation: fadeIn 0.4s ease;
         }
 
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(15px);
+                transform: translateY(12px);
             }
             to {
                 opacity: 1;
@@ -99,36 +149,77 @@
         }
 
         .auth-title {
+            font-size: 2rem;
             font-weight: 700;
-            margin-bottom: 25px;
+
             text-align: center;
+
+            margin-bottom: 28px;
+
             color: #243b55;
         }
 
-        .form-control {
-            border-radius: 12px;
-            padding: 12px 14px;
-            min-height: 48px;
+        /* =========================
+        FORM ELEMENTS
+        ========================== */
+
+        .form-control,
+        .form-select {
+            width: 100%;
+
+            min-height: 56px;
+
+            border-radius: 14px;
+
+            padding: 14px 16px;
+
+            font-size: 1rem;
+
+            border: 1px solid #d7dce2;
+
+            transition: 0.25s ease;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #243b55;
+            box-shadow: 0 0 0 0.2rem rgba(36,59,85,0.15);
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #243b55, #141e30);
+            width: 100%;
+
+            min-height: 56px;
+
             border: none;
-            border-radius: 12px;
-            padding: 12px;
+
+            border-radius: 14px;
+
+            background: linear-gradient(135deg, #243b55, #141e30);
+
+            font-size: 1rem;
             font-weight: 600;
-            transition: 0.3s;
+
+            transition: 0.3s ease;
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        .mb-3 {
+            margin-bottom: 18px !important;
         }
 
         .form-text-link {
             text-align: center;
-            margin-top: 15px;
-            font-size: 14px;
+            margin-top: 18px;
+            font-size: 15px;
         }
 
         .form-text-link a {
@@ -141,76 +232,142 @@
             text-decoration: underline;
         }
 
+        hr {
+            margin: 24px 0;
+        }
+
+        small.text-danger {
+            display: block;
+            margin-top: 6px;
+        }
+
         /* =========================
-        MOBILE RESPONSIVE
+        TABLET
         ========================== */
 
-        @media (max-width: 992px) {
-
-            .auth-container {
-                flex-direction: column;
-                min-height: 100vh;
-            }
+        @media screen and (max-width: 992px) {
 
             .left-panel {
-                flex: unset;
-                min-height: 220px;
-                padding: 30px 20px;
-            }
-
-            .left-panel img {
-                width: 180px;
-                max-width: 70%;
+                width: 45%;
             }
 
             .right-panel {
-                flex: 1;
-                width: 100%;
-                align-items: flex-start;
-                padding: 24px 18px 40px;
+                width: 55%;
             }
 
-            .auth-card {
-                max-width: 100%;
-                width: 100%;
-                padding: 24px;
-                border-radius: 18px;
+            .left-panel img {
+                max-width: 300px;
             }
         }
 
-        @media (max-width: 576px) {
+        /* =========================
+        MOBILE
+        ========================== */
 
+        @media screen and (max-width: 768px) {
+
+            html,
+            body {
+                height: auto;
+                overflow: auto;
+            }
+
+            body {
+                background: #f4f6f8;
+            }
+
+            .auth-container {
+                display: block;
+                height: auto;
+            }
+
+            /* TOP LOGO */
             .left-panel {
-                min-height: 180px;
-                padding: 24px 16px;
+                width: 100%;
+                height: auto;
+                min-height: unset;
+
+                position: relative;
+
+                background: transparent;
+
+                padding: 24px 20px 12px;
+            }
+
+            .left-panel::after {
+                display: none;
             }
 
             .left-panel img {
-                width: 150px;
+                display: block;
+
+                width: 220px;
+                max-width: 85%;
+
+                margin: 0 auto;
+
+                filter: none;
+
+                transform: none !important;
             }
 
+            /* FORM SECTION */
             .right-panel {
-                padding: 18px 14px 32px;
+                width: 100%;
+                height: auto;
+
+                overflow: visible;
+
+                display: block;
+
+                padding: 0 14px 30px;
             }
 
             .auth-card {
-                padding: 20px;
-                border-radius: 16px;
+                width: 100%;
+                max-width: 100%;
+
+                margin: 0;
+
+                padding: 28px 20px;
+
+                border-radius: 20px;
+
+                background: #fff;
+
+                box-shadow: 0 8px 25px rgba(0,0,0,0.08);
             }
 
             .auth-title {
-                font-size: 24px;
-                margin-bottom: 20px;
+                font-size: 32px;
+                margin-bottom: 28px;
             }
 
-            .form-control {
-                font-size: 15px;
-                padding: 11px 12px;
+            .form-control,
+            .form-select,
+            input,
+            select {
+                width: 100%;
+
+                height: 60px !important;
+
+                font-size: 17px !important;
+
+                padding: 16px !important;
+
+                border-radius: 14px !important;
             }
 
+            button,
+            .btn,
             .btn-primary {
-                padding: 11px;
-                font-size: 15px;
+                width: 100%;
+
+                height: 60px;
+
+                font-size: 17px;
+
+                border-radius: 14px;
             }
         }
     </style>

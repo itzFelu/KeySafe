@@ -23,7 +23,7 @@
             <div class="d-flex justify-content-between align-items-start mb-2">
 
                 <div class="note-title">
-                    {{ note.decrypted_title|truncatechars:40 }}
+                  <h6>{{ note.decrypted_title|truncatechars:40 }}</h6>
                 </div>
 
                 <div class="dropdown">
@@ -58,7 +58,7 @@
             <!-- 🔹 Footer -->
             <div class="note-footer mt-3">
                 <small class="text-muted">
-                    {{ note.created_at|date:"M d, Y" }}
+                   <small>{{ note.created_at|date:"M d, Y" }}</small> 
                 </small>
             </div>
 

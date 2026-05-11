@@ -17,6 +17,49 @@
     margin-bottom: 24px;
 }
 
+/* PASSWORD TOGGLE */
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-input {
+    padding-right: 52px !important;
+}
+
+.password-toggle {
+    position: absolute;
+
+    top: 50%;
+    right: 16px;
+
+    transform: translateY(-50%);
+
+    border: none;
+    background: transparent;
+
+    color: #64748b;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.password-toggle:hover {
+    color: #0f172a;
+}
+
+.password-toggle:focus {
+    outline: none;
+    box-shadow: none;
+}
+
 </style>
 {% endblock %}
 
@@ -41,7 +84,21 @@
                 {% csrf_token %}
 
                 <div class="mb-3">
-                    {{ form.password }}
+
+                    <div class="password-wrapper">
+
+                        {{ form.password }}
+
+                        <button type="button"
+                                class="password-toggle"
+                                onclick="togglePassword('{{ form.password.id_for_label }}', this)">
+
+                            <i class="bi bi-eye"></i>
+
+                        </button>
+
+                    </div>
+
                 </div>
 
                 <div class="mb-3">
@@ -73,4 +130,34 @@
 
 </div>
 
+{% endblock %}
+
+{% block script %}
+<script>
+
+    function togglePassword(inputId, button) {
+
+        const input =
+            document.getElementById(inputId);
+
+        const icon =
+            button.querySelector("i");
+
+        if (input.type === "password") {
+
+            input.type = "text";
+
+            icon.classList.remove("bi-eye");
+            icon.classList.add("bi-eye-slash");
+
+        } else {
+
+            input.type = "password";
+
+            icon.classList.remove("bi-eye-slash");
+            icon.classList.add("bi-eye");
+        }
+    }
+
+</script>
 {% endblock %}

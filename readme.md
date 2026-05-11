@@ -1,4 +1,4 @@
-# 🔐 KeySafe – Access Your Data Anytime, Anywhere
+# 🔐 KeySafe – Access Your Data Anytime, Anywhere <small><sub><sup>[<u>(_Check Live_)</u>](https://itzfelu.pythonanywhere.com/)</sup></sub></small>
 
 ## 📌 Overview
 **KeySafe** is a secure web-based note management system that allows users to store, access, and manage personal notes from anywhere. The application focuses on **multi-layer authentication**, **data security**, and a **clean user experience**.
@@ -250,5 +250,5 @@ python manage.py runserver
 
 ## 📌 Authors
 
-- **Sukanta Roy**  
-- **Ramit Kumar Mandal**
+- [**Sukanta Roy**](https://github.com/itzfelu)  
+- [**Ramit Kumar Mandal**](https://github.com/Ramit-Kumar)

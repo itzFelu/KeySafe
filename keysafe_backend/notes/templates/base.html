@@ -3,230 +3,401 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title%}{% endblock%} - KeySafe</title>
 
+    <!-- Responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}{% endblock %} - KeySafe</title>
+
+    <!-- Favicon -->
     <link rel="icon" href="{% static 'images/favicon.png' %}">
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
     <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
     <style>
+
+        /* ========================================= */
+        /* GLOBAL */
+        /* ========================================= */
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
         body {
             background: #f5f7fb;
             font-family: 'Segoe UI', sans-serif;
+            overflow-x: hidden;
         }
 
-        /* 🔹 Navbar */
+        .page-wrapper {
+
+            min-height: 100vh;
+
+            display: flex;
+
+            flex-direction: column;
+        }
+
+        .main-content {
+
+            flex: 1;
+        }
+
+        /* ========================================= */
+        /* NAVBAR */
+        /* ========================================= */
+
         .custom-navbar {
+
             background: #1e293b;
-            /* padding: 16px 24px; */
-            min-height: 80px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+
+            min-height: 82px;
+
+            padding: 10px 28px;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,0.15);
         }
 
-        /* 🔹 Branding Wrapper (Fix blending issue) */
-        .branding-wrapper {
-            background: rgba(255,255,255,0.95);  /* 👈 contrast background */
-            padding: 6px 10px;
-            border-radius: 10px;
-        }
-
-        /* 🔹 Branding Image */
+        /* Branding */
         .nav-branding {
-            height: 80px !important;
-            width: auto !important;
-            max-height: none !important;
+
+            height: 80px;
+
+            width: auto;
+
             display: block;
+
+            transition: 0.2s ease;
         }
 
-        /* 🔹 Avatar Image */
+        .nav-branding:hover {
+            opacity: 0.95;
+        }
+
+        /* Avatar Section */
+        .avatar-trigger {
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            text-decoration: none;
+        }
+
+        /* Avatar */
         .avatar-img {
-            width: 42px;
-            height: 42px;
+
+            width: 44px;
+            height: 44px;
+
             border-radius: 50%;
+
             object-fit: cover;
+
             border: 2px solid white;
-            transition: 0.3s;
+
+            transition: 0.25s ease;
         }
 
         .avatar-img:hover {
             transform: scale(1.05);
         }
 
-        /* 🔹 Name under avatar */
+        /* Name */
         .avatar-name {
+
             color: white;
+
             font-size: 12px;
+
+            margin-top: 4px;
+
+            max-width: 100px;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
         }
 
-        /* 🔹 Dropdown */
+        /* Dropdown */
         .dropdown-menu {
-            border-radius: 10px;
+
+            border: none;
+
+            border-radius: 14px;
+
+            padding: 10px;
+
+            box-shadow:
+                0 12px 35px rgba(0,0,0,0.12);
         }
+
+        /* ========================================= */
+        /* DASHBOARD CONTAINER */
+        /* ========================================= */
 
         .dashboard-container {
+
             padding: 40px 20px;
         }
 
+        /* ========================================= */
+        /* ADD NOTE BUTTON */
+        /* ========================================= */
+
         .add-note-btn {
+
             display: flex;
+
             justify-content: center;
+
             margin-bottom: 30px;
         }
 
-        /* 🔹 Note Card */
+        /* ========================================= */
+        /* NOTE CARD */
+        /* ========================================= */
+
+        .row {
+            overflow: visible;
+        }
+
         .note-card {
+
             position: relative;
-            border-radius: 14px;
+
+            border-radius: 16px;
+
             padding: 18px;
+
             background: white;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+
+            box-shadow:
+                0 8px 25px rgba(0,0,0,0.06);
+
             transition: all 0.25s ease;
-            height: 100%;
+
+            height: auto;
+
+            overflow: visible;
         }
 
-        /* Hover effect */
+
+        /* Ensure dropdown appears on top */
+        .note-card .dropdown-menu {
+            z-index: 1055;
+        }
+
         .note-card:hover {
+
             transform: translateY(-4px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+
+            box-shadow:
+                0 15px 35px rgba(0,0,0,0.12);
         }
 
-        /* 🔹 Title */
+        /* Title */
         .note-title {
+
             font-weight: 600;
+
             font-size: 15px;
+
             color: #1e293b;
 
             flex: 1;
+
             min-width: 0;
 
             overflow: hidden;
+
             text-overflow: ellipsis;
 
             display: -webkit-box;
+
             -webkit-line-clamp: 2;
+
             -webkit-box-orient: vertical;
 
             line-height: 1.4;
+
             word-break: break-word;
         }
 
-        /* 🔹 Triple Dot Button */
+        /* Triple Dot */
         .note-menu-btn {
+
             width: 34px;
             height: 34px;
 
             border: none;
+
             border-radius: 10px;
 
             background: #f1f5f9;
 
             display: flex;
+
             align-items: center;
+
             justify-content: center;
 
             font-size: 18px;
+
             color: #475569;
 
             transition: all 0.2s ease;
+
+            flex-shrink: 0;
         }
 
-        /* Hover */
         .note-menu-btn:hover {
+
             background: #e2e8f0;
+
             color: #0f172a;
         }
 
-        /* Click */
         .note-menu-btn:focus {
             box-shadow: none;
         }
 
-        /* 🔹 Content */
+        /* Content */
         .note-content {
+
             font-size: 14px;
+
             color: #475569;
+
             line-height: 1.5;
 
             display: -webkit-box;
-            -webkit-line-clamp: 3;   /* 👈 limits lines */
+
+            -webkit-line-clamp: 3;
+
             -webkit-box-orient: vertical;
+
             overflow: hidden;
         }
 
-        /* 🔹 Footer */
+        /* Footer */
         .note-footer {
+
             border-top: 1px solid #f1f5f9;
+
             padding-top: 8px;
         }
 
-        /* 🔹 Clickable Overlay */
+        /* Clickable Overlay */
         .note-link {
+
             position: absolute;
+
             inset: 0;
+
             z-index: 1;
         }
 
-        /* Prevent menu click block */
+        /* Prevent Menu Blocking */
         .note-card .dropdown {
+
             position: relative;
+
             z-index: 2;
         }
 
-        /* Note Detail */
+        /* ========================================= */
+        /* NOTE DETAIL */
+        /* ========================================= */
+
         .note-detail-card {
+
             background: white;
+
             border-radius: 18px;
+
             padding: 35px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,0.06);
         }
 
-        /* Header */
         .note-detail-header {
+
             display: flex;
+
             justify-content: space-between;
+
             align-items: flex-start;
+
             gap: 20px;
         }
 
-        /* Long title fix */
         .detail-title {
+
             font-size: 30px;
+
             font-weight: 700;
+
             color: #0f172a;
 
             word-break: break-word;
-            overflow-wrap: break-word;
+
+            overflow-wrap: anywhere;
 
             max-width: 90%;
         }
 
-        /* Meta */
         .note-meta {
+
             margin-top: 8px;
+
             color: #64748b;
+
             font-size: 14px;
         }
 
-        /* Body */
         .note-body {
+
             margin-top: 30px;
+
             line-height: 1.9;
+
             color: #334155;
+
             font-size: 16px;
 
             white-space: pre-wrap;
         }
 
-        /* Action button */
+        /* Action Button */
         .action-btn {
+
             border: none;
+
             background: #f1f5f9;
+
             width: 42px;
+
             height: 42px;
+
             border-radius: 10px;
+
             font-size: 22px;
+
             transition: 0.2s;
         }
 
@@ -234,39 +405,61 @@
             background: #e2e8f0;
         }
 
-        /*-- Write Mode CSS --*/
-        /* Title Input */
+        /* ========================================= */
+        /* WRITE MODE */
+        /* ========================================= */
+
         .note-title-input {
+
             border: none;
+
             font-size: 32px;
+
             font-weight: 700;
+
             padding: 0;
+
             box-shadow: none !important;
         }
 
-        /* Content Input */
         .note-content-input {
+
             border: none;
+
             resize: none;
+
             min-height: 400px;
+
             box-shadow: none !important;
+
             font-size: 16px;
+
             line-height: 1.8;
         }
-        /*--- Messages ---*/
+
+        /* ========================================= */
+        /* MESSAGES */
+        /* ========================================= */
+
         .message-container {
+
             position: relative;
+
             z-index: 1055;
         }
 
         .auto-dismiss-message {
+
             transition: opacity 0.5s ease;
         }
 
-        /* Footer */
+        /* ========================================= */
+        /* FOOTER */
+        /* ========================================= */
+
         .keysafe-footer {
 
-            margin-top: 80px;
+            margin-top: auto;
 
             background:
                 linear-gradient(to right, #0f172a, #1e293b);
@@ -275,28 +468,39 @@
 
             padding: 40px 0 28px;
 
-            border-top: 1px solid rgba(255,255,255,0.08);
+            border-top:
+                1px solid rgba(255,255,255,0.08);
         }
 
         /* Logo */
         .footer-logo {
+
             height: 52px;
+
             width: auto;
+
             margin-bottom: 12px;
         }
 
         /* Tagline */
         .footer-tagline {
+
             color: #cbd5e1;
+
             font-size: 14px;
+
             margin: 0;
         }
 
         /* Links */
         .footer-links {
+
             display: flex;
+
             justify-content: center;
+
             gap: 24px;
+
             flex-wrap: wrap;
         }
 
@@ -317,130 +521,295 @@
 
         /* Copyright */
         .footer-copy {
+
             color: #cbd5e1;
+
             font-size: 14px;
         }
 
+        /* ========================================= */
+        /* RESPONSIVE */
+        /* ========================================= */
+
+        @media (max-width: 768px) {
+
+            /* Navbar */
+            .custom-navbar {
+
+                padding: 10px 16px;
+
+                min-height: 74px;
+            }
+
+            .nav-branding {
+
+                height: 58px;
+            }
+
+            /* Hide name on mobile */
+            .avatar-name {
+                display: none;
+            }
+
+            .avatar-img {
+
+                width: 42px;
+                height: 42px;
+            }
+
+            /* Dashboard */
+            .dashboard-container {
+
+                padding: 24px 14px;
+            }
+
+            /* Cards */
+            .note-card {
+                height: 100%;
+            }
+
+            .note-title {
+
+                font-size: 14px;
+            }
+
+            .note-content {
+
+                font-size: 13px;
+            }
+
+            /* Detail Page */
+            .note-detail-card {
+
+                padding: 24px 18px;
+
+                border-radius: 14px;
+            }
+
+            .detail-title {
+
+                font-size: 24px;
+            }
+
+            .note-body {
+
+                font-size: 15px;
+
+                line-height: 1.8;
+            }
+
+            /* Write Mode */
+            .note-title-input {
+
+                font-size: 24px;
+            }
+
+            .note-content-input {
+
+                min-height: 300px;
+
+                font-size: 15px;
+            }
+
+            /* Footer */
+            .footer-links {
+
+                gap: 16px;
+            }
+
+            .footer-copy {
+
+                text-align: center;
+
+                margin-top: 14px;
+            }
+
+            .footer-brand {
+
+                text-align: center;
+            }
+        }
+
     </style>
+
     {% block css %}
     <style>
     </style>
     {% endblock %}
+
 </head>
+
 <body>
 
-<!-- 🔝 Navbar -->
-<nav class="navbar navbar-expand-lg px-4 custom-navbar">
+<div class="page-wrapper">
 
-    <!-- 🔹 Branding (Clickable) -->
-    <a class="navbar-brand d-flex align-items-center" href="{% url 'dashboard' %}">
-        <img src="{% static 'images/branding.png' %}" alt="KeySafe" class="nav-branding">
-    </a>
+    <!-- ========================================= -->
+    <!-- NAVBAR -->
+    <!-- ========================================= -->
 
-    <!-- 🔹 Right Side Avatar -->
-    <div class="ms-auto dropdown text-center">
+    <nav class="navbar custom-navbar">
 
-        <a href="#" data-bs-toggle="dropdown" class="text-decoration-none">
-
-            <!-- Avatar Image -->
-            <img src="{% static 'images/avatar.png' %}" alt="avatar" class="avatar-img">
-
-            <!-- Full Name -->
-            <div class="avatar-name small mt-1">
-                {{ request.user.name }}
-            </div>
-
-        </a>
-
-        <ul class="dropdown-menu dropdown-menu-end mt-2">
-            <li class="dropdown-item text-center">
-                <strong>{{ request.user.name }}</strong><br>
-                <small>{{ request.user.email }}</small>
-            </li>
-            <li><hr class="dropdown-divider"></li>
-            <li>
-                <a class="dropdown-item" href="{% url 'profile' %}">
-                    Profile
-                </a>
-            </li>
-            <li>
-                <form method="post" action="{% url 'logout' %}">
-                    {% csrf_token %}
-                    <button class="dropdown-item text-danger">Logout</button>
-                </form>
-            </li>
-        </ul>
-
-    </div>
-
-</nav>
-
-<!-- 🔔 Messages -->
-<div class="container mt-3">
-    {% include 'components/messages.html' %}
-</div>
-
-<!-- 📦 Content -->
-<div class="dashboard-container container">
-    {% block content %}{% endblock %}
-</div>
-
-<footer class="keysafe-footer">
-
-    <div class="container">
-
-        <div class="row align-items-center gy-4">
+        <div class="container-fluid">
 
             <!-- Branding -->
-            <div class="col-lg-4">
+            <a class="navbar-brand"
+               href="{% url 'dashboard' %}">
 
-                <div class="footer-brand">
+                <img src="{% static 'images/branding.png' %}"
+                     alt="KeySafe"
+                     class="nav-branding">
 
-                    <img src="{% static 'images/branding.png' %}"
-                         alt="KeySafe"
-                         class="footer-logo">
+            </a>
 
-                    <p class="footer-tagline">
-                        Secure your thoughts. Access them anywhere.
-                    </p>
+            <!-- Avatar -->
+            <div class="ms-auto dropdown">
 
-                </div>
+                <a href="#"
+                   class="avatar-trigger"
+                   data-bs-toggle="dropdown">
+
+                    <img src="{% static 'images/avatar.png' %}"
+                         alt="avatar"
+                         class="avatar-img">
+
+                    <div class="avatar-name">
+                        {{ request.user.name }}
+                    </div>
+
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-end mt-2">
+
+                    <li class="dropdown-item text-center">
+
+                        <strong>
+                            {{ request.user.name }}
+                        </strong>
+
+                        <br>
+
+                        <small>
+                            {{ request.user.email }}
+                        </small>
+
+                    </li>
+
+                    <li><hr class="dropdown-divider"></li>
+
+                    <li>
+
+                        <a class="dropdown-item"
+                           href="{% url 'profile' %}">
+                            Profile
+                        </a>
+
+                    </li>
+
+                    <li>
+
+                        <form method="post"
+                              action="{% url 'logout' %}">
+
+                            {% csrf_token %}
+
+                            <button class="dropdown-item text-danger">
+                                Logout
+                            </button>
+
+                        </form>
+
+                    </li>
+
+                </ul>
 
             </div>
 
-            <!-- Quick Links -->
-            <div class="col-lg-4 text-center">
+        </div>
 
-                <div class="footer-links">
+    </nav>
 
-                    <a href="{% url 'dashboard' %}">
-                        Dashboard
-                    </a>
+    <!-- ========================================= -->
+    <!-- MESSAGES -->
+    <!-- ========================================= -->
 
-                    <a href="{% url 'profile' %}">
-                        Profile
-                    </a>
+    <div class="container mt-3">
+        {% include 'components/messages.html' %}
+    </div>
 
-                    <a href="{% url 'add-note' %}">
-                        Add Note
-                    </a>
+    <!-- ========================================= -->
+    <!-- CONTENT -->
+    <!-- ========================================= -->
+
+    <main class="main-content">
+
+        <div class="dashboard-container container">
+            {% block content %}{% endblock %}
+        </div>
+
+    </main>
+
+    <!-- ========================================= -->
+    <!-- FOOTER -->
+    <!-- ========================================= -->
+
+    <footer class="keysafe-footer">
+
+        <div class="container">
+
+            <div class="row align-items-center gy-4">
+
+                <!-- Branding -->
+                <div class="col-lg-4">
+
+                    <div class="footer-brand">
+
+                        <img src="{% static 'images/branding.png' %}"
+                             alt="KeySafe"
+                             class="footer-logo">
+
+                        <p class="footer-tagline">
+                            Secure your thoughts. Access them anywhere.
+                        </p>
+
+                    </div>
 
                 </div>
 
-            </div>
+                <!-- Links -->
+                <div class="col-lg-4 text-center">
 
-            <!-- Copyright -->
-            <div class="col-lg-4 text-lg-end text-center">
+                    <div class="footer-links">
 
-                <div class="footer-copy">
+                        <a href="{% url 'dashboard' %}">
+                            Dashboard
+                        </a>
 
-                    <p class="mb-1">
-                        © 2026 KeySafe
-                    </p>
+                        <a href="{% url 'profile' %}">
+                            Profile
+                        </a>
 
-                    <small>
-                        Built with Django & Bootstrap
-                    </small>
+                        <a href="{% url 'add-note' %}">
+                            Add Note
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <!-- Copyright -->
+                <div class="col-lg-4 text-lg-end text-center">
+
+                    <div class="footer-copy">
+
+                        <p class="mb-1">
+                            © 2026 KeySafe
+                        </p>
+
+                        <small>
+                            Built with Django & Bootstrap
+                        </small>
+
+                    </div>
 
                 </div>
 
@@ -448,20 +817,32 @@
 
         </div>
 
-    </div>
+    </footer>
 
-</footer>
+</div>
 
+<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Auto Dismiss Messages -->
 <script>
+
     setTimeout(() => {
-        const alerts = document.querySelectorAll('.auto-dismiss-message');
+
+        const alerts =
+            document.querySelectorAll('.auto-dismiss-message');
 
         alerts.forEach(alert => {
-            bootstrap.Alert.getOrCreateInstance(alert).close();
+
+            bootstrap.Alert
+                .getOrCreateInstance(alert)
+                .close();
+
         });
 
-    }, 5000); // 5 seconds
+    }, 5000);
+
 </script>
+
 </body>
 </html>

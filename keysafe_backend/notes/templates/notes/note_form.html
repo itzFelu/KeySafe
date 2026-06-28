@@ -36,7 +36,7 @@
                 Save
             </button>
 
-            <a href="{% url 'dashboard' %}" class="btn btn-light">
+            <a href="{% url 'dashboard' %}" class="btn btn-light cancel-btn">
                 Cancel
             </a>
 
@@ -91,3 +91,23 @@
 {% endif %}
 
 {% endblock %}
+
+{% block script%}
+<script>
+    document.querySelector(".cancel-btn").addEventListener('click', (event)=>{
+        event.preventDefault();
+        // URL: https://example.com
+        const urlParams = new URLSearchParams(window.location.search);
+
+        const from = urlParams.get('from'); 
+        
+        let url = '';
+        if(from === "detail"){
+            url = "{% url 'note-detail' form.instance.id %}";
+        }else{
+            url = "{% url 'dashboard' %}";
+        }
+        location.href = url;
+    });
+</script>
+{% endblock script %}

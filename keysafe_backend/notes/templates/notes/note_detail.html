@@ -2,6 +2,24 @@
 
 {% block title%}Note{% endblock%}
 
+{% block css%}
+<style>
+    .note-body { 
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+        font-size: 16px; 
+    }
+    .note-body p { 
+        line-height: 1; 
+        margin-top: 0;
+        margin-bottom: 0.5rem; 
+    }
+    .note-body ul, ol {
+        margin-bottom: 0.5rem;
+        line-height: 1.4; 
+    }
+</style>
+{%endblock css%}
+
 {% block content %}
 
 <div class="note-detail-card">

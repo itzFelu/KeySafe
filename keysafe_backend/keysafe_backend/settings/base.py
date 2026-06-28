@@ -108,6 +108,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# 10 minutes in seconds (10 * 60)
+SESSION_COOKIE_AGE = 600  
+
+# Expire the session database entry when the cookie expires
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True  
+
+# Force Django to save the session and update cookie expiration on every request
+SESSION_SAVE_EVERY_REQUEST = True 
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/

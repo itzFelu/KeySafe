@@ -24,7 +24,7 @@
             <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
                 <li>
                     <a class="dropdown-item" href="{% url 'edit-note' note.id %}">
-                        ✏️ Edit
+                        <i class="bi bi-pencil-square"></i> Edit
                     </a>
                 </li>
 
@@ -32,7 +32,7 @@
                     <button class="dropdown-item text-danger"
                             data-bs-toggle="modal"
                             data-bs-target="#deleteModal">
-                        🗑 Delete
+                        <i class="bi bi-trash"></i> Delete
                     </button>
                 </li>
             </ul>

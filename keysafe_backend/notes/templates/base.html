@@ -402,13 +402,19 @@
 
             /* margin-top: 30px; */
 
-            line-height: 1.2;
+            /* line-height: 1; */
 
             color: #334155;
 
             font-size: 16px;
 
-            white-space: pre-wrap;
+            /* white-space: pre-wrap; */
+        }
+
+        /* This fixes the squished text lines inside the paragraphs */
+        .note-body p {
+            line-height: 1.6;
+            margin-bottom: 1em; 
         }
 
         /* Action Button */
@@ -456,7 +462,7 @@
 
             resize: none;
 
-            min-height: 400px;
+            max-height: 39vh;
 
             box-shadow: none !important;
 

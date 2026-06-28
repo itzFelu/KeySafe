@@ -33,14 +33,22 @@
                         <i class="bi bi-three-dots"></i>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="{% url 'note-detail' note.id %}">Open</a></li>
-                        <li><a class="dropdown-item" href="{% url 'edit-note' note.id %}">Edit</a></li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'note-detail' note.id %}" target="_blank">
+                                <i class="bi bi-window-plus"></i> Open in new tab
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'edit-note' note.id %}">
+                                <i class="bi bi-pencil-square"></i> Edit
+                            </a>
+                        </li>
                         <li>
                             <button 
                                 class="dropdown-item text-danger"
                                 data-bs-toggle="modal"
                                 data-bs-target="#deleteModal{{ note.id }}">
-                                Delete
+                                <i class="bi bi-trash"></i> Delete
                             </button>
                         </li>
                     </ul>

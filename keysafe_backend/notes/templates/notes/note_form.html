@@ -5,7 +5,7 @@
 {% block content %}
 <div class="note-detail-card">
 
-    <form method="post">
+    <form id="noteForm" method="post" novalidate>
         {% csrf_token %}
 
         <!-- Title -->
@@ -21,12 +21,17 @@
         <hr>
 
         <!-- Content -->
-        <div class="mb-4">
+        <div class="mb-2">
             <textarea name="content"
                       rows="14"
                       class="form-control note-content-input"
+                      id="note-content-input-id"
                       required
                       placeholder="Start writing...">{{ form.content.value|default:'' }}</textarea>
+        </div>
+
+        <div id="validation-error" style="color: red; margin-bottom: 15px; display: none;">
+            This field is required.
         </div>
 
         <!-- Actions -->
@@ -94,6 +99,56 @@
 
 {% block script%}
 <script>
+    tinymce.init({
+        license_key: 'gpl',
+        selector: 'textarea#note-content-input-id', // Targets your specific notes textarea ID
+        plugins: 'lists link image table code help wordcount',
+        toolbar: 'undo redo | blocks | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+        
+        // Hides the entire bottom status bar (removes path, wordcount, and resize handle)
+        statusbar: false,   
+        // Hides the "Powered by TinyMCE" branding text
+        branding: false,  
+        
+        menubar: false,
+        promotion: false 
+    });
+
+    // Handle Form Submission Validation
+    document.getElementById('noteForm').addEventListener('submit', function(event) {
+        // Hide error message on every new submission attempt
+        const errorDiv = document.getElementById('validation-error');
+        errorDiv.style.display = 'none';
+
+        // 1. Validate the Title field (since novalidate turned off native alerts)
+        const titleInput = document.querySelector('input[name="title"]');
+        if (!titleInput.value.trim()) {
+            event.preventDefault();
+            titleInput.focus();
+            alert("Please enter a note title."); // Quick notification for the title field
+            return;
+        }
+
+        // 2. Force TinyMCE to sync its text back to the underlying textarea
+        tinymce.triggerSave();
+        
+        // 3. Target the CORRECT textarea element ID
+        const textarea = document.getElementById('note-content-input-id'); 
+        
+        // 4. Strip out HTML tags to see if the user actually typed real words
+        const cleanContent = textarea.value.replace(/<[^>]*>/g, '').trim();
+        
+        // 5. If content is empty, block submission and show your custom Bootstrap-friendly error
+        if (cleanContent === '') {
+            event.preventDefault(); // Stops form submission
+            
+            errorDiv.style.display = 'block'; // Show our warning text
+            
+            // Put visual focus back onto the editor interface
+            tinymce.activeEditor.focus(); 
+        }
+    });
+
     {% if mode == 'edit' %}
         document.querySelector(".cancel-btn").addEventListener('click', (event)=>{
             event.preventDefault();

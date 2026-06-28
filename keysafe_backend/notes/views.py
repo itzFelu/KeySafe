@@ -33,7 +33,7 @@ def add_note_view(request):
             messages.success(request, "Note created successfully!")
             return redirect('dashboard')
 
-    return render(request, 'notes/note_form.html', {'form': form})
+    return render(request, 'notes/note_form.html', {'form': form, 'mode': "add"})
 
 
 @login_required
@@ -61,7 +61,7 @@ def edit_note_view(request, pk):
             messages.success(request, "Note updated successfully!")
             return redirect('note-detail', pk=note.id)
 
-    return render(request, 'notes/note_form.html', {'form': form})
+    return render(request, 'notes/note_form.html', {'form': form, 'mode': "edit"})
 
 
 @login_required

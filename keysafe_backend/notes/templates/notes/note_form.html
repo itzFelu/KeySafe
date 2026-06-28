@@ -94,20 +94,22 @@
 
 {% block script%}
 <script>
-    document.querySelector(".cancel-btn").addEventListener('click', (event)=>{
-        event.preventDefault();
-        // URL: https://example.com
-        const urlParams = new URLSearchParams(window.location.search);
+    {% if mode == 'edit' %}
+        document.querySelector(".cancel-btn").addEventListener('click', (event)=>{
+            event.preventDefault();
+            // URL: https://example.com
+            const urlParams = new URLSearchParams(window.location.search);
 
-        const from = urlParams.get('from'); 
-        
-        let url = '';
-        if(from === "detail"){
-            url = "{% url 'note-detail' form.instance.id %}";
-        }else{
-            url = "{% url 'dashboard' %}";
-        }
-        location.href = url;
-    });
+            const from = urlParams.get('from'); 
+            
+            let url = '';
+            if(from === "detail"){
+                url = "{% url 'note-detail' form.instance.id %}";
+            }else{
+                url = "{% url 'dashboard' %}";
+            }
+            location.href = url;
+        });
+    {% endif %}
 </script>
 {% endblock script %}
